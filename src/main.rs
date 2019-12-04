@@ -7,7 +7,8 @@ struct Numbers <T>
     y: T,
 }
 
-impl <T: Add<Output = T>> Add for Numbers <T> 
+impl <T> Add for Numbers <T>
+where T: Add<Output = T> 
 {
     type Output = Self;
 
