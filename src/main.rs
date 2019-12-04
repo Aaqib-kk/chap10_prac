@@ -1,20 +1,25 @@
-// use std::fmt::Display;
-pub struct Numbers <T>
+use std::ops::{Add, Sub};
+
+#[derive(Debug, PartialEq)]
+struct Numbers <T>
 {
     x: T,
     y: T,
 }
 
-pub trait Addition <T>
+impl <T: Add<Output = T>> Add for Numbers <T> 
 {
-    fn add(self) -> T;
-}
+    type Output = Self;
 
-impl <T> Addition <T> for Numbers <T> 
-{
-    fn add(self) -> T
+    fn add(self, other: Self) -> Self::Output
     {
-       self.x + self.y 
+        Self
+        {
+            // self.x + self.y
+            x: self.x + other.x,
+            y: self.y + other.y,
+        }
+
     }
 }
 
@@ -25,6 +30,43 @@ fn main()
         x: 5,
         y: 10,
     };
-
-    println!("{}", number_list.add());
+    println!("{:?}", number_list.x + number_list.y);
 }
+
+
+
+
+
+
+
+
+
+
+// use std::ops::{Add, Sub};
+
+// #[derive(Debug, PartialEq)]
+// pub struct Point {
+//     x: i32,
+//     y: i32,
+// }
+
+// impl Add for Point {
+//     type Output = Point;
+
+//     fn add(self, other: Point) -> Point {
+//         Point {x: self.x + other.x, y: self.y + other.y}
+//     }
+// }
+
+// impl Sub for Point {
+//     type Output = Point;
+
+//     fn sub(self, other: Point) -> Point {
+//         Point {x: self.x - other.x, y: self.y - other.y}
+//     }
+// }
+// fn main()
+// {
+//     let point1 = {Point {x: 1, y: 0} + Point {x: 2, y: 3} };
+//     println!("{:?}",point1);
+// }
